@@ -1,0 +1,30 @@
+{
+    "Application": {
+        "Type": "WinVMC",
+        "Path": "C:/WinVMC/",
+        "Executable": "WinVMC.exe",
+        "Data": {
+            "Receipts": "daten/cm_r_imp.txt",
+            "Groups": "daten/Gruppen.dat",
+            "Config": "winvmc.ini",
+            "Manual": "winvmc.pdf",
+            "Log": "winvmc.log",
+            "Info": "winvmc.txt"
+        }
+    },
+    "System": {
+        "User": {
+            "Admin": "root",
+            "AdminHASH": "dc76e9f0c0006e8f919e0c515c66dbba3982f785",
+            "Default": "user",
+            "DefaultHASH": "12dea96fec20593566ab75692c9949596833adc9"
+        },
+        "Startup": true,
+        "Wizard": false,
+        "LoginRequired": false,
+        "UpdateIntervall": {
+            "VMCLog": 3000,
+            "Graph": 300000
+        }
+    }
+}

@@ -1,0 +1,509 @@
+doctype html
+html(lang='de')
+  head
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    meta(name='description', content='')
+    meta(name='author', content='')
+    title #{automatennummer} - #{title}
+    // Bootstrap Core CSS
+    link(href='../vendor/bootstrap/css/bootstrap.min.css', rel='stylesheet')
+    // MetisMenu CSS
+    link(href='../vendor/metisMenu/metisMenu.min.css', rel='stylesheet')
+    // Custom CSS
+    link(href='../dist/css/sb-admin-2.css', rel='stylesheet')
+    // Custom CSS
+    link(href='../stylesheets/style.css', rel='stylesheet')
+    // Morris Charts CSS
+    link(href='../vendor/morrisjs/morris.css', rel='stylesheet')
+    // Custom Fonts
+    link(href='../vendor/font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
+    // HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
+    // WARNING: Respond.js doesn't work if you view the page via file://
+    //
+      if lt IE 9script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
+      script(src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')
+    link(rel='stylesheet', type='text/css', href='../vendor/DataTables/datatables.min.css')
+  body
+    #wrapper
+      // Navigation
+      nav.navbar.navbar-default.navbar-static-top(role='navigation', style='margin-bottom: 0')
+        .navbar-header
+          button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href='/') VMI - Automat #{automatennummer}
+        // /.navbar-header
+        .navbar-default.sidebar(role='navigation')
+          .sidebar-nav.navbar-collapse
+            ul#side-menu.nav
+              li
+                a(href='/dashboard')
+                  i.fa.fa-dashboard.fa-fw
+                  |  Dashboard
+              li
+                a(href='')
+                  i.fa.fa-hdd-o.fa-fw
+                  |  VMC
+                ul.nav.nav-second-level
+                  li
+                    a(href='/vmc/log')
+                      i.fa.fa-list.fa-fw
+                      |  Log
+                  li
+                    a(href='/vmc/settings')
+                      i.fa.fa-cog.fa-fw
+                      |  Einstellungen
+                  li
+                    a(href='/vmc/info', target="_blank")
+                      i.fa.fa-info.fa-fw
+                      |  Info
+                  li
+                    a(href='/vmc/manual', target="_blank")
+                      i.fa.fa-question-circle-o.fa-fw
+                      |  Handbuch
+              li
+                a(href='/receipts')
+                  i.fa.fa-list.fa-fw
+                  |  Belegübersicht
+          // /.sidebar-collapse
+        // /.navbar-static-side
+      #page-wrapper
+        .row
+          .col-lg-12
+            h1.page-header VMC Einstellungen
+          // /.col-lg-12
+        // /.row
+        button#SaveINI.btn.btn-primary(style="margin-bottom: 10px;" title="Speichern")
+          i.fa.fa-save
+          |  Speichern   
+        .row
+          ul.nav.nav-tabs
+            li.active
+              a(href='#1', data-toggle='tab') Einstellungen
+            li
+              a(href='#3', data-toggle='tab') Gruppen
+            li
+              a(href='#4', data-toggle='tab', style="visibility: hidden;") Sperrliste
+            li
+              a(href='#2', data-toggle='tab', style="visibility: hidden;") Preise              
+          .tab-content
+            #1.tab-pane.active
+              .row
+                .col-md-4
+                  .panel.panel-default
+                    .panel-heading
+                      i.fa.fa-desktop.fa-fw
+                      |  Automat
+                    .panel-body  
+                      .row
+                        .col-md-6.mb-3
+                          label(for='automatennummer') Automatennummer
+                          input#automatennummer.form-control(type='text', placeholder='Automatennummer', required, value='#{automatennummer}')
+                        .col-md-6.mb-3
+                          label(for='transaktionsnummer') Transaktionsnummer
+                          input#transaktionsnummer.form-control(type='text', placeholder='Transaktionsnummer', required, value='#{transaktionsnummer}')
+                      .row
+                        .col-md-6.mb-3
+                          label(for='vmccom') VMC Schnittstelle
+                          input#vmccom.form-control(type='text', placeholder='VMCCom', required, value='#{vmccom}')
+                        .col-md-6.mb-3
+                          label(for='crccom') Kartenleser COM
+                          input#crcom.form-control(type='text', placeholder='CRCCom', required, value='#{crcom}')
+                      .row  
+                        .col-md-6.mb-3
+                          label(for='dispcom') Kundenanzeige COM
+                          input#dispcom.form-control(type='text', placeholder='DISPCom', required, value='#{dispcom}')
+                        .col-md-6.mb-3
+                          label(for='cctalkcom') ccTalk Notenleser
+                          input#cctalkcom.form-control(type='text', placeholder='cTalkCom', required, value='#{cctalkcom}')  
+                      .row  
+                        .col-md-6.mb-3
+                          label(for='LeserTyp') LeserTyp
+                          select#LeserTyp.form-control
+                            option(value='0') GiroVend
+                            option(value='1') GiroWeb
+                            option(value='2') HESS-Leser
+                            option(value='3') Lesersimulation
+                            option(value='4') EMP 800
+                            option(value='5') GW MINTEC
+                            script.
+                              var pOptions = document.getElementById('LeserTyp').options;
+                              for (i=0; i < pOptions.length; i++) {
+                                if (pOptions[i].value == #{lesertyp}) pOptions[i].selected = true;
+                              }
+                        .col-md-6.mb-3
+                          label(for='VMCType') VMCType
+                          select#VMCType.form-control
+                            option(value='0') BDV
+                            option(value='1') EXE
+                            option(value='2') MDB Link
+                            option(value='3') GV Typ 6 p
+                            option(value='4') DIVA HL
+                            option(value='5') Test
+                            option(value='6') GV Typ 110
+                            option(value='7') Conrad Relais
+                            option(value='8') MDB Slave
+                            script.
+                              var pOptions = document.getElementById('VMCType').options;
+                              for (i=0; i < pOptions.length; i++) {
+                                if (pOptions[i].value == #{vmctype}) pOptions[i].selected = true;
+                              }                            
+                .col-lg-4
+                  .panel.panel-default
+                    .panel-heading
+                      i.fa.fa-cogs.fa-fw
+                      |  Allgemein
+                    .panel-body  
+                      .col-md-6.mb-3
+                        .row
+                          label.custom-control.custom-checkbox
+                            if vmcprice == '1'
+                              input#vmcprice.custom-control-input(type='checkbox', checked)
+                            else
+                              input#vmcprice.custom-control-input(type='checkbox')
+                            span.custom-control-indicator
+                            span.custom-control-description  Preis vom Gerät
+                        .row
+                          label.custom-control.custom-checkbox
+                            if pidmove == '1'
+                              input#pidmove.custom-control-input(type='checkbox', checked)
+                            else
+                              input#pidmove.custom-control-input(type='checkbox')
+                            span.custom-control-indicator
+                            span.custom-control-description  PID verschiebung
+                        .row
+                          label.custom-control.custom-checkbox
+                            if usekctxt == '1'
+                              input#usekctxt.custom-control-input(type='checkbox', checked)
+                            else
+                              input#usekctxt.custom-control-input(type='checkbox')
+                            span.custom-control-indicator
+                            span.custom-control-description  KeyCard.txt benutzen
+                        .row
+                          label.custom-control.custom-checkbox
+                            if abbott == '1'
+                              input#abbott.custom-control-input(type='checkbox', checked)
+                            else
+                              input#abbott.custom-control-input(type='checkbox')
+                            span.custom-control-indicator
+                            span.custom-control-description  Abbott spezial
+                        .row
+                          label.custom-control.custom-checkbox
+                            if mdbladung == '1'
+                              input#mdbladung.custom-control-input(type='checkbox', checked)
+                            else
+                              input#mdbladung.custom-control-input(type='checkbox')
+                            span.custom-control-indicator
+                            span.custom-control-description  MDB Ladung
+                      .col-md-6.mb-3
+                        .row
+                          label(for='scalingfactor') Scaling Factor (nur EXE)
+                          input#scalingfactor.form-control(type='text', placeholder='VKTimeout', required, value='#{scalingfactor}')      
+                        .row
+                          label(for='VKTimeout') Timeout Verkauf (s)
+                          input#vktimeout.form-control(type='text', placeholder='VKTimeout', required, value='#{vktimeout}')
+                        .row
+                          label(for='SC') Servicekarte
+                          input#sc.form-control(type='text', placeholder='SC', required, value='#{sc}')
+                        .row
+                          label(for='StartDelay') Startverzögerung
+                          input#startdelay.form-control(type='text', placeholder='StartDelay', required, value='#{startdelay}')
+                .col-lg-4
+                  .panel.panel-default
+                    .panel-heading
+                      i.fa.fa-exchange.fa-fw
+                      |  Abrechnung
+                    .panel-body
+                      .row
+                        .col-md-12.mb-3
+                          label.custom-control.custom-checkbox
+                            if typ == '0'
+                              input#Typ.custom-control-input(type='radio', name="abrechnung", value='0', checked)
+                            else
+                              input#Typ.custom-control-input(type='radio', name="abrechnung", value='0')
+                            span.custom-control-indicator
+                            span.custom-control-description  Ablesung mit USB Stick
+                      .row  
+                        .col-md-12.mb-3
+                          label.custom-control.custom-checkbox
+                            if typ == '1'
+                              input#Typ.custom-control-input(type='radio', name="abrechnung", value="1", checked)
+                            else
+                              input#Typ.custom-control-input(type='radio', name="abrechnung", value="1")
+                            span.custom-control-indicator
+                            span.custom-control-description  Ablesung im Netzwerk 
+                      .row
+                        .col-md-12.mb-3  
+                          input#P1.form-control(type='text', placeholder="Pfad", value='#{p1}')
+                      .row
+                        .col-md-12.mb-3
+                          label.custom-control.custom-checkbox
+                            if typ == '2'
+                              input#Typ.custom-control-input(type='radio', name="abrechnung", value="2", checked)
+                            else
+                              input#Typ.custom-control-input(type='radio', name="abrechnung", value="2")
+                            span.custom-control-indicator
+                            span.custom-control-description  Abrechnung SQL
+                      .row
+                        .col-md-12.mb-3
+                          input#P2.form-control(type='text', placeholder='(local);CashControl', required, value='#{p2}')
+                      .row    
+                        .col-md-6.mb-3
+                          |   Automatisch um
+                          input#P3.form-control(type='text', placeholder='00:00', required, value='#{p3}')
+                        .col-md-6.mb-3
+                          |   SQL Sync (min)
+                          input#P4.form-control(type='text', placeholder='0', required, value='#{p4}')     
+              .row  
+                .col-lg-6
+                  .panel.panel-default
+                    .panel-heading
+                      i.fa.fa-database.fa-fw
+                      |  SQL
+                    .panel-body
+                      .row
+                        .col-md-6.mb-3
+                          label(for='Server') Server
+                          input#Server.form-control(type='text', placeholder='Server', required, value='#{server}')
+                        .col-md-6.mb-3
+                          label(for='DataBase') DataBase
+                          input#DataBase.form-control(type='text', placeholder='DataBase', required, value='#{database}')
+                      .row
+                        .col-md-6.mb-3
+                          label(for='MonIP') WinVMC Monitor IP
+                          input#MonIP.form-control(type='text', placeholder='MonIP', required, value='#{monip}')
+                        .col-md-6.mb-3
+                          label(for='TimeIP') Timeserver IP
+                          input#TimeIP.form-control(type='text', placeholder='TimeIP', required, value='#{timeip}')
+                      .row  
+                        .col-md-12.mb-3
+                          label.custom-control.custom-checkbox
+                            if timesync == '1'
+                              input#TimeSync.custom-control-input(type='checkbox', value='#{timesync}', checked)
+                            else
+                              input#TimeSync.custom-control-input(type='checkbox', value='#{timesync}')
+                            span.custom-control-indicator
+                            span.custom-control-description  Zeit über SQL synchronisieren
+            #2.tab-pane
+              .row
+                .col-lg-12
+                  .form-inline(style="margin: 10px;")
+                        button.btn.btn-primary(style="margin-right: 10px;" title="Benutzergruppe hinzufügen") Hinzufügen
+                        button.btn.btn-primary(style="margin-right: 10px;" title="Bearbeiten")
+                          i.fa.fa-edit
+                          |  Bearbeiten
+                        button.btn.btn-danger(style="margin-right: 10px;", title="Logfile löschen")
+                          i.fa.fa-trash
+                          |  Löschen                     
+                  table#PriceTable.table.table-hover
+                    thead
+                      tr
+                        th Wahl
+                        th PL0
+                        th PL1
+                        th PL2
+                        th PL3
+                        th PL4
+                        th PL5
+                        th PL6
+                        th PL7
+                        th PL8
+                        th PL9
+                        th PL10
+                    tbody                                                                                                                                                                                                                                                       
+            #3.tab-pane
+              .row
+                .col-lg-12
+                  .form-inline(style="margin: 10px;")
+                        button#AddGroupBtn.btn.btn-primary(style="margin-right: 10px;" title="Benutzergruppe hinzufügen" data-toggle='modal', data-target='#addModal')
+                          i.fa.fa-plus
+                          |  Hinzufügen
+                        // Modal
+                        #addModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='addModalLabel', aria-hidden='true')
+                          .modal-dialog
+                            .modal-content
+                              .modal-header
+                                button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+                                h4#addModalLabel.modal-title Benutzergruppe hinzufügen
+                              .modal-body
+                                .panel.panel-default
+                                  .panel-body  
+                                    .row
+                                      .col-md-6.mb-3
+                                        label(for='Benutzergruppe') Benutzergruppe
+                                      .col-md-6.mb-3
+                                        input#Benutzergruppe.form-control(type='text', placeholder='Automatennummer')
+                                    .row
+                                      .col-md-6.mb-3
+                                        label(for='Benutzeruntergruppe') Benutzuntergruppe
+                                      .col-md-6.mb-3
+                                        input#Benutzeruntergruppe.form-control(type='text', placeholder='Automatennummer')
+                                    .row
+                                      .col-md-6.mb-3
+                                        label(for='Preisliste') Preisliste
+                                      .col-md-6.mb-3
+                                        input#Preisliste.form-control(type='text', placeholder='Automatennummer', required)
+                                    .row
+                                      .col-md-6.mb-3
+                                        label(for='Zahlungsart') Zahlungsart
+                                      .col-md-6.mb-3
+                                        select#Zahlungsart.form-control
+                                          option(value='Debit') Debit
+                                          option(value='Konto') Konto
+                                          option(value='Kostenstelle') Kostenstelle
+                                          option(value='gesperrt') gesperrt
+                                          option(value='Service') Service
+                                    .row
+                                      .col-md-6.mb-3
+                                        label(for="Keycard").custom-control.custom-checkbox Bei Konto/Kostenstelle Keycard.txt prüfen
+                                      .col-md-6.mb3
+                                          if Keycard == '1'
+                                            input#Keycard.custom-control-input(type='checkbox', checked)
+                                          else
+                                            input#Keycard.custom-control-input(type='checkbox')
+                                    .row
+                                      .col-md-6.mb-3
+                                        label(for="Zuschuss").custom-control.custom-checkbox Zuschuss
+                                      .col-md-6.mb3
+                                          if Zuschuss == '1'
+                                            input#Zuschuss.custom-control-input(type='checkbox', checked)
+                                          else
+                                            input#Zuschuss.custom-control-input(type='checkbox')
+                                    .row
+                                      .col-md-6.mb-3
+                                        label(for='Zaehler') Zähler
+                                      .col-md-6.mb-3
+                                        input#Zaehler.form-control(type='text', placeholder='Automatennummer', required)
+                                    .row
+                                      .col-md-6.mb-3
+                                        label(for='Zuschusstyp') Typ
+                                      .col-md-6.mb-3
+                                        select#Zuschusstyp.form-control
+                                          option(value='Fixbetrag') Fixbetrag
+                                          option(value='prozentual') prozentual
+                                          option(value='Preisliste') Preisliste
+                                    .row
+                                      .col-md-6.mb-3
+                                        label(for='Wert') Wert
+                                      .col-md-6.mb-3
+                                        input#Wert.form-control(type='text', placeholder='Automatennummer', required)
+                                    .row
+                                      .col-md-6.mb-3
+                                        label(for='Zuschusswahlen') Zuschusswahlen
+                                      .col-md-6.mb-3
+                                        input#Zuschusswahlen.form-control(type='text', placeholder='Automatennummer', required)
+                                    .row
+                                      .col-md-6.mb-3
+                                        label(for='Von') Gültig von
+                                      .col-md-6.mb-3
+                                        input#Von.form-control(type='text', placeholder='Automatennummer', required, value='00:00')
+                                    .row
+                                      .col-md-6.mb-3
+                                        label(for='Bis') Gültig bis
+                                      .col-md-6.mb-3
+                                        input#Bis.form-control(type='text', placeholder='Automatennummer', required, value='23:59')
+                              .modal-footer
+                                button.btn.btn-default(type='button', data-dismiss='modal') Schließen
+                                button#InsertGroupBtn.btn.btn-primary(type='button') Hinzufügen
+                            // /.modal-content
+                          // /.modal-dialog
+                        // /.modal
+                        button#DeleteGroupBtn.btn.btn-danger(style="margin-right: 10px;", title="Benutzergruppe löschen")
+                          i.fa.fa-trash
+                          |  Löschen 
+                  table#GroupTable.table.table-striped.table-bordered.table-hover(width='100%')
+                    thead
+                      tr
+                        th
+                        th Gruppe
+                        th Untergruppe
+                        th Preisliste
+                        th Zahlart
+                        th Zuschuss
+                        th Zähler
+                        th Typ
+                        th Wert
+                        th Zuschusswahlen
+                        th Gültig von
+                        th Gültig bis
+                        th Keycard.txt prüfen  
+                    tbody
+                      each group in groups
+                        tr
+                          td                          
+                          td=group.Benutzergruppe
+                          td=group.Untergruppe
+                          td=group.Preisliste
+                          td=group.Zahlungsart
+                          td=group.Zuschuss
+                          td=group.Zähler
+                          td=group.Typ
+                          td=group.Zuschusswahlen
+                          td=group.Wert
+                          td=group.GültigVon
+                          td=group.GültigBis
+                          td=group.Keycardtxt
+                    tfoot
+                      tr
+                        th
+                        th Gruppe
+                        th Untergruppe
+                        th Preisliste
+                        th Zahlart
+                        th Zuschuss
+                        th Zähler
+                        th Typ
+                        th Wert
+                        th Zuschusswahlen
+                        th Gültig von
+                        th Gültig bis
+                        th Keycard.txt prüfen            
+            #4.tab-pane
+              .row
+                .col-lg-12
+                  table.table.table-hover
+                    thead
+                      tr
+                        th #
+                        th First Name
+                        th Last Name
+                        th Username
+                    tbody
+                      tr
+                        th(scope='row') 1
+                        td Mark
+                        td Otto
+                        td @mdo
+                      tr
+                        th(scope='row') 2
+                        td Jacob
+                        td Thornton
+                        td @fat
+                      tr
+                        th(scope='row') 3
+                        td(colspan='2') Larry the Bird
+                        td @twitte
+      // /#page-wrapper
+    // /#wrapper
+    // jQuery
+    script(src='../vendor/jquery/jquery.min.js')
+    // Bootstrap Core JavaScript
+    script(src='../vendor/bootstrap/js/bootstrap.min.js')
+    // Metis Menu Plugin JavaScript
+    script(src='../vendor/metisMenu/metisMenu.min.js')
+    // Morris Charts JavaScript
+    script(src='../vendor/raphael/raphael.min.js')
+    script(src='../vendor/morrisjs/morris.min.js')
+    script(src='../data/morris-data.js')
+    // Custom Theme JavaScript
+    script(src='../dist/js/sb-admin-2.js')
+    script(src='../vendor/DataTables/datatables.min.js')
+    script(src='../javascripts/vmc.js')
+    script.
+      $(document).ready(function() {
+        InitializeComponents()
+      } );
