@@ -149,6 +149,11 @@ function LoadGroups() {
     var csvjson = require('csvjson');
 
     const csvFilePath = AppConfig.Application.Path + AppConfig.Application.Data.Groups
+
+    if (fs.existsSync(csvFilePath) == false) {
+        return {};
+    }
+
     var data = fs.readFileSync(csvFilePath, { encoding: 'utf8' });
 
     var options = {

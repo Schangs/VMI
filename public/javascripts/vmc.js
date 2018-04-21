@@ -116,11 +116,6 @@ function getLog() {
 
 function InitializeComponents() {
     var table = $('#GroupTable').DataTable({
-        columnDefs: [{
-            orderable: false,
-            className: 'select-checkbox',
-            targets: 0
-        }],
         select: {
             style: 'single',
             selector: 'tr'
@@ -130,13 +125,11 @@ function InitializeComponents() {
         },
         order: [
             [1, 'asc']
-        ]
+        ],
+        responsive: true
     }).on('select', function(e, dt, type, indexes) {
         var rowData = table.rows(indexes).data().toArray();
         selectedRowIndex = indexes;
-        console.log(rowData)
-        console.log(selectedRowIndex)
-        console.log(selectedRowIndex.length)
     });
 
     $('#DeleteGroupBtn').click(function() {

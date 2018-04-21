@@ -8,9 +8,8 @@ var core = require('../core.js');
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
-    var AppConfig = core.getAppconfig();
-    var config = core.getINI()
-    var Receipts = core.getReceipts()
+    var config = core.getINI();
+    var Receipts = core.getReceipts();
 
 
     if (Receipts != undefined) {
@@ -19,6 +18,7 @@ router.get('/', function(req, res, next) {
         var Amount = 0;
 
         Receipts.forEach(element => {
+            // TODO -> Auslagern in Helper function
             var sum = parseFloat(element.Umsatz.replace(',', '.'))
             Amount = Amount + sum;
         });

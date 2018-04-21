@@ -128,7 +128,6 @@ html(lang='de')
     // Morris Charts JavaScript
     script(src='../vendor/raphael/raphael.min.js')
     script(src='../vendor/morrisjs/morris.min.js')
-    script(src='../data/morris-data.js')
     // DataTables JavaScript
     script(src='../vendor/DataTables/datatables.min.js')
     // Bootstrap Datepicker JavaScript
@@ -139,24 +138,25 @@ html(lang='de')
     script.
       $(document).ready(function(){
         $('#receipts').DataTable({
-            "ajax": {
-              "url": "receipts/data",
-              "type": "GET",
-              "dataSrc": "Data",
-            },
-            "language": {
-            "url": "/languages/de-DE.json"
-            },
-          "columns": [
-            { "data": "Datum" },
-            { "data": "Uhrzeit" },
-            { "data": "Belegnummer" },
-            { "data": "Key/Card" },
-            { "data": "Benutzergruppe" },
-            { "data": "Benutzeruntergruppe" },
-            { "data": "Artikelnummer" },
-            { "data": "Umsatz" },
-            { "data": "Endsaldo" }
+          ajax: {
+            url: "receipts/data",
+            type: "GET",
+            dataSrc: "Data",
+          },
+          language: {
+            url: "/languages/de-DE.json"
+          },
+          responsive: true,
+          columns: [
+            { data: "Datum" },
+            { data: "Uhrzeit" },
+            { data: "Belegnummer" },
+            { data: "Key/Card" },
+            { data: "Benutzergruppe" },
+            { data: "Benutzeruntergruppe" },
+            { data: "Artikelnummer" },
+            { data: "Umsatz" },
+            { data: "Endsaldo" }
           ]
         });
         $('#DatePicker').datepicker({

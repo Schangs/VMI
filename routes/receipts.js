@@ -3,6 +3,7 @@ var fs = require('fs');
 var router = express.Router();
 var jsonQuery = require('json-query')
 var csvjson = require('csvjson');
+var core = require('../core.js');
 
 /* GET page. */
 router.get('/', function(req, res, next) {
@@ -13,34 +14,19 @@ router.get('/', function(req, res, next) {
 
 router.get('/data', function(req, res, next) {
 
-    // TODO -> In eigenes Modul auslagern?
-    var data = fs.readFileSync('config.json', {
-        encoding: 'utf8'
-    });
-    var AppConfig = JSON.parse(data)
+    var Receipts = core.getReceipts();
 
-    const csvFilePath = AppConfig.Application.Path + AppConfig.Application.Data.Receipts
+    if (Receipts == undefined) {
+        Receipts = {};
+    } else {
+        Receipts.forEach(element => {
+            var sum = parseFloat(element.Umsatz.replace(',', '.'))
+            element.Umsatz = sum.toFixed(2).toString().replace('.', ',') + " €";
 
-    var csvdata = fs.readFileSync(csvFilePath, {
-        encoding: 'utf8'
-    });
-
-    var options = {
-        delimiter: ';', // optional 
-        quote: '"', // optional 
-        headers: "Datum;Uhrzeit;Stationsnummer;Belegnummer;Kassierer;Zahlart;Key/Card;Benutzergruppe;Benutzeruntergruppe;Kostenstelle;Preisliste;Subventionsstufe;Positionstyp;Artikelnummer;Steuer;Menge;Umsatz;Artikelbezeichnung;Endsaldo;Standard-Preis;Vorgangszähler;Gewicht;Währungskennzeichen;Kostenstellen-Zusatzinfo;"
+            var saldo = parseFloat(element.Endsaldo.replace(',', '.'))
+            element.Endsaldo = saldo.toFixed(2).toString().replace('.', ',') + " €";
+        });
     };
-    //----------
-
-    var Receipts = csvjson.toObject(csvdata, options);
-
-    Receipts.forEach(element => {
-        var sum = parseFloat(element.Umsatz.replace(',', '.'))
-        element.Umsatz = sum.toFixed(2).toString().replace('.', ',') + " €";
-
-        var saldo = parseFloat(element.Endsaldo.replace(',', '.'))
-        element.Endsaldo = saldo.toFixed(2).toString().replace('.', ',') + " €";
-    });
 
     var json = JSON.stringify({
         Data: Receipts
@@ -51,34 +37,12 @@ router.get('/data', function(req, res, next) {
 
 router.get('/:date', function(req, res, next) {
 
-    // TODO -> In eigenes Modul auslagern?
-    var data = fs.readFileSync('config.json', {
-        encoding: 'utf8'
-    });
-    var AppConfig = JSON.parse(data)
+    var AppConfig = core.getAppconfig();
+    var Receipts = core.getReceipts();
 
-    const csvFilePath = AppConfig.Application.Path + AppConfig.Application.Data.Receipts
+    var date = req.params.date;
 
-    var csvdata = fs.readFileSync(csvFilePath, {
-        encoding: 'utf8'
-    });
-
-    var options = {
-        delimiter: ';', // optional 
-        quote: '"', // optional 
-        headers: "Datum;Uhrzeit;Stationsnummer;Belegnummer;Kassierer;Zahlart;Key/Card;Benutzergruppe;Benutzeruntergruppe;Kostenstelle;Preisliste;Subventionsstufe;Positionstyp;Artikelnummer;Steuer;Menge;Umsatz;Artikelbezeichnung;Endsaldo;Standard-Preis;Vorgangszähler;Gewicht;Währungskennzeichen;Kostenstellen-Zusatzinfo;"
-    };
-    //----------
-
-    var Receipts = csvjson.toObject(csvdata, options);
-
-    var date1 = req.params.date;
-
-    console.log(date1);
-
-    var date2 = date1 - 1
-
-    console.log(date2)
+    console.log(date);
 
     var jsonArr = [];
 
@@ -91,25 +55,27 @@ router.get('/:date', function(req, res, next) {
         var timeto = i + ":59";
 
         var itemCount = 0;
-        var itemCount2 = 0;
+        var amount = 0.00;
 
-        var data1 = jsonQuery(['[*Datum=? & Uhrzeit >= ? & Uhrzeit <= ?].Uhrzeit', date1, timefrom, timeto], {
+        var data1 = jsonQuery(['[*Datum=? & Uhrzeit >= ? & Uhrzeit <= ?].Uhrzeit', date, timefrom, timeto], {
             data: Receipts
         }).value;
         data1.forEach(element => {
             itemCount++;
         });
 
-        var data2 = jsonQuery(['[*Datum=? & Uhrzeit >= ? & Uhrzeit <= ?].Uhrzeit', date2, timefrom, timeto], {
+        var data2 = jsonQuery(['[*Datum=? & Uhrzeit >= ? & Uhrzeit <= ?].Umsatz', date, timefrom, timeto], {
             data: Receipts
         }).value;
         data2.forEach(element => {
-            itemCount2++;
+            // TODO -> Auslagern in Helper function
+            var sum = parseFloat(element.replace(',', '.'))
+            amount = amount + sum;
         });
 
         jsonArr.push({
-            AnzahlToday: itemCount,
-            AnzahlYesterday: itemCount2,
+            Anzahl: itemCount,
+            Umsatz: amount,
             Time: timefrom
         });
     };

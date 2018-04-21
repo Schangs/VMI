@@ -7,7 +7,7 @@ var Graph;
 
 function loadData(DateValue) {
 
-    var Intervall;
+    var Intervall = 300000;
 
     $.ajax({
         type: 'GET',
@@ -20,15 +20,14 @@ function loadData(DateValue) {
                 element: 'dayli-chart',
                 data: json,
                 xkey: 'Time',
-                ykeys: ['AnzahlToday'],
-                labels: ['Heute'],
+                ykeys: ['Anzahl', 'Umsatz'],
+                labels: ['Anzahl', 'Umsatz €'],
                 hideHover: 'auto',
                 resize: true,
                 parseTime: false,
-                lineColors: ['blue', 'grey']
+                lineColors: ['blue', 'green']
             });
             Intervall = request.getResponseHeader('Intervall');
-            console.log(Intervall)
         }
     });
 
