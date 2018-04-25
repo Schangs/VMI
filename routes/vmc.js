@@ -98,7 +98,7 @@ router.put('/settings', function(req, res, next) {
 
     fs.writeFileSync(IniFile, ini.stringify(config));
 
-    win.sudo(AppConfig.Application.Path + AppConfig.Application.Executable, '');
+    win.elevate(AppConfig.Application.Path + AppConfig.Application.Executable, '');
     console.log(AppConfig.Application.Path + AppConfig.Application.Executable);
     res.sendStatus(200);
 
