@@ -7,6 +7,7 @@ module.exports = {
 var fs = require('fs');
 var csvjson = require('csvjson');
 var ini = require('ini');
+var os = require('os');
 
 function getAppconfig() {
     try {
@@ -58,4 +59,4 @@ function getINI() {
     } catch (error) {
         console.log(error)
     }
-}
+};

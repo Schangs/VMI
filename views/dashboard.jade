@@ -43,11 +43,11 @@ html(lang='de')
             ul#side-menu.nav
               li
                 a(href='/dashboard')
-                  i.fa.fa-dashboard.fa-fw
+                  i.fa.fa-tachometer-alt.fa-fw
                   |  Dashboard
               li
                 a(href='#')
-                  i.fa.fa-hdd-o.fa-fw
+                  i.fa.fa-hdd.fa-fw
                   |  VMC
                 ul.nav.nav-second-level
                   li
@@ -64,7 +64,7 @@ html(lang='de')
                       |  Info
                   li
                     a(href='/vmc/manual', target="_blank")
-                      i.fa.fa-question-circle-o.fa-fw
+                      i.fa.fa-question-circle.fa-fw
                       |  Handbuch
               li
                 a(href='/receipts')
@@ -79,12 +79,70 @@ html(lang='de')
           // /.col-lg-12
         // /.row
         .row
+          .col-lg-3.col-md-6
+            div#CPUPanel.panel.panel-success
+              .panel-heading
+                .row
+                  .col-xs-3
+                    i.fa.fa-server.fa-4x
+                  .col-xs-9
+                    div
+                      p
+                        strong CPU
+                        span#CPUValue.pull-right
+                      .progress.progress-striped.active
+                        div#CPUProgressBar.progress-bar.progress-bar-success(role='progressbar', aria-valuenow='0', aria-valuemin='0', aria-valuemax='100', style='width: 0%')
+          .col-lg-3.col-md-6
+            div#RAMPanel.panel.panel-danger
+              .panel-heading
+                .row
+                  .col-xs-3
+                    i.fas.fa-microchip.fa-4x
+                  .col-xs-9
+                    div
+                      p
+                        strong RAM
+                        span#RAMValue.pull-right
+                      .progress.progress-striped.active
+                        div#RAMProgressBar.progress-bar.progress-bar-danger(role='progressbar', aria-valuenow='0', aria-valuemin='0', aria-valuemax='100', style='width: 0%')
+          .col-lg-3.col-md-6
+            div#HDDPanel.panel.panel-success
+              .panel-heading
+                .row
+                  .col-xs-3
+                    i.fas.fa-hdd.fa-4x
+                  .col-xs-9
+                    div
+                      p
+                        strong#HDDMount
+                        span#HDDValue.pull-right
+                      .progress.progress-striped.active
+                        div#HDDProgressBar.progress-bar.progress-bar-success(role='progressbar', aria-valuenow='0', aria-valuemin='0', aria-valuemax='100', style='width: 0%')
+          .col-lg-3.col-md-6
+            div#TEMPPanel.panel.panel-warning
+              .panel-heading
+                .row
+                  .col-xs-3
+                    i.fa.fa-thermometer-empty.fa-4x
+                  .col-xs-9.text
+                    div
+                      p
+                        strong TEMP
+                        span.pull-right.huge #{systemp}°C
+                      span  
+        .row
+          .col-lg-12
+            h1 Verkaufsinformationen
+          // /.col-lg-12
+        // /.row
+        .row
+        .row
           .col-lg-4.col-md-6
             .panel.panel-primary
               .panel-heading
                 .row
                   .col-xs-3
-                    i.fa.fa-shopping-cart.fa-5x
+                    i.fa.fa-shopping-cart.fa-4x
                   .col-xs-9.text-right
                     .huge #{sales}
                     div Verkäufe
@@ -99,7 +157,7 @@ html(lang='de')
               .panel-heading
                 .row
                   .col-xs-3
-                    i.fa.fa-euro.fa-5x
+                    i.fa.fa-euro-sign.fa-4x
                   .col-xs-9.text-right
                     .huge #{amount} €
                     div Umsatz

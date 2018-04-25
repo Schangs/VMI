@@ -4,6 +4,7 @@ var ini = require('ini');
 var task = require('ms-task');
 var cmd = require('node-cmd');
 var AppConfig = require('../config.json')
+var win = require("node-windows");
 
 var router = express.Router();
 
@@ -93,16 +94,12 @@ router.put('/settings', function(req, res, next) {
     config.Common.LeserTyp = req.body.lesertyp;
     config.Common.VMCType = req.body.vmctype;
 
-    console.log(req.body)
-
-    console.log(WriteToCSV(req.body.groups, AppConfig.Application.Path + AppConfig.Application.Data.Groups))
-
     task.kill(AppConfig.Application.Executable);
 
     fs.writeFileSync(IniFile, ini.stringify(config));
 
-    cmd.run(AppConfig.Application.Path + AppConfig.Application.Executable);
-
+    win.sudo(AppConfig.Application.Path + AppConfig.Application.Executable, '');
+    console.log(AppConfig.Application.Path + AppConfig.Application.Executable);
     res.sendStatus(200);
 
 });

@@ -1,7 +1,7 @@
 {
     "Application": {
         "Type": "WinVMC",
-        "Path": "C:/WinVMC/",
+        "Path": "C:\\WinVMC\\",
         "Executable": "WinVMC.exe",
         "Data": {
             "Receipts": "daten/cm_r_imp.txt",
@@ -24,7 +24,13 @@
         "LoginRequired": false,
         "UpdateIntervall": {
             "VMCLog": 3000,
-            "Graph": 300000
+            "Graph": 300000,
+            "HardwareMonitor": 10000
+        },
+        "Thresholds": {
+            "Success": 0,
+            "Warning": 50,
+            "Danger": 80
         }
     }
 }

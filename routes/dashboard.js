@@ -4,6 +4,7 @@ var ini = require('ini');
 var fs = require('fs');
 var csvjson = require('csvjson');
 var core = require('../core.js');
+const si = require('systeminformation');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -25,10 +26,22 @@ router.get('/', function(req, res, next) {
 
         var Total = Amount.toFixed(2).toString().replace('.', ',');
 
-        res.render('dashboard', { title: 'Dashboard', automatennummer: config.Common.Automatennummer, sales: Sales, amount: Total });
+        res.render('dashboard', {
+            title: 'Dashboard',
+            automatennummer: config.Common.Automatennummer,
+            sales: Sales,
+            amount: Total
+        });
     } else {
-        res.render('dashboard', { title: 'Dashboard', automatennummer: config.Common.Automatennummer, sales: 'Keine Daten', amount: 'Keine Daten' });
+        res.render('dashboard', {
+            title: 'Dashboard',
+            automatennummer: config.Common.Automatennummer,
+            sales: 'Keine Daten',
+            amount: 'Keine Daten'
+        });
     }
+
 });
+
 
 module.exports = router
