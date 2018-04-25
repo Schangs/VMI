@@ -152,7 +152,6 @@ function InitializeComponents() {
             keycard = 1
         }
         table.row.add([
-            "",
             $('#Benutzergruppe').val(),
             $('#Benutzeruntergruppe').val(),
             $('#Preisliste').val(),

@@ -337,17 +337,17 @@ html(lang='de')
                                       .col-md-6.mb-3
                                         label(for='Benutzergruppe') Benutzergruppe
                                       .col-md-6.mb-3
-                                        input#Benutzergruppe.form-control(type='text', placeholder='Automatennummer')
+                                        input#Benutzergruppe.form-control(type='text', placeholder='0')
                                     .row
                                       .col-md-6.mb-3
                                         label(for='Benutzeruntergruppe') Benutzuntergruppe
                                       .col-md-6.mb-3
-                                        input#Benutzeruntergruppe.form-control(type='text', placeholder='Automatennummer')
+                                        input#Benutzeruntergruppe.form-control(type='text', placeholder='0')
                                     .row
                                       .col-md-6.mb-3
                                         label(for='Preisliste') Preisliste
                                       .col-md-6.mb-3
-                                        input#Preisliste.form-control(type='text', placeholder='Automatennummer', required)
+                                        input#Preisliste.form-control(type='text', placeholder='-1', required)
                                     .row
                                       .col-md-6.mb-3
                                         label(for='Zahlungsart') Zahlungsart
@@ -378,7 +378,7 @@ html(lang='de')
                                       .col-md-6.mb-3
                                         label(for='Zaehler') Zähler
                                       .col-md-6.mb-3
-                                        input#Zaehler.form-control(type='text', placeholder='Automatennummer', required)
+                                        input#Zaehler.form-control(type='text', placeholder='0', required)
                                     .row
                                       .col-md-6.mb-3
                                         label(for='Zuschusstyp') Typ
@@ -391,22 +391,22 @@ html(lang='de')
                                       .col-md-6.mb-3
                                         label(for='Wert') Wert
                                       .col-md-6.mb-3
-                                        input#Wert.form-control(type='text', placeholder='Automatennummer', required)
+                                        input#Wert.form-control(type='text', placeholder='0', required)
                                     .row
                                       .col-md-6.mb-3
                                         label(for='Zuschusswahlen') Zuschusswahlen
                                       .col-md-6.mb-3
-                                        input#Zuschusswahlen.form-control(type='text', placeholder='Automatennummer', required)
+                                        input#Zuschusswahlen.form-control(type='text', placeholder='-1', required)
                                     .row
                                       .col-md-6.mb-3
                                         label(for='Von') Gültig von
                                       .col-md-6.mb-3
-                                        input#Von.form-control(type='text', placeholder='Automatennummer', required, value='00:00')
+                                        input#Von.form-control(type='text', placeholder='', required, value='00:00')
                                     .row
                                       .col-md-6.mb-3
                                         label(for='Bis') Gültig bis
                                       .col-md-6.mb-3
-                                        input#Bis.form-control(type='text', placeholder='Automatennummer', required, value='23:59')
+                                        input#Bis.form-control(type='text', placeholder='', required, value='23:59')
                               .modal-footer
                                 button.btn.btn-default(type='button', data-dismiss='modal') Schließen
                                 button#InsertGroupBtn.btn.btn-primary(type='button') Hinzufügen
