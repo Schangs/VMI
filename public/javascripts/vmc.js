@@ -29,18 +29,18 @@ function SaveINI() {
         }
         console.log(cellData)
         jsonArr.push({
-            Benutzergruppe: cellData[1],
-            Untergruppe: cellData[2],
-            Preisliste: cellData[3],
-            Zahlungsart: cellData[4],
-            Zuschuss: cellData[5],
-            Zähler: cellData[6],
-            Typ: cellData[7],
-            Wert: cellData[8],
-            Zuschusswahlen: cellData[9],
-            GültigVon: cellData[10],
-            GültigBis: cellData[11],
-            Keycardtxt: cellData[12],
+            Benutzergruppe: cellData[0],
+            Untergruppe: cellData[1],
+            Preisliste: cellData[2],
+            Zahlungsart: cellData[3],
+            Zuschuss: cellData[4],
+            Zähler: cellData[5],
+            Typ: cellData[6],
+            Wert: cellData[7],
+            Zuschusswahlen: cellData[8],
+            GültigVon: cellData[9],
+            GültigBis: cellData[10],
+            Keycardtxt: cellData[11],
         });
     }
 

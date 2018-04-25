@@ -102,17 +102,9 @@ router.put('/settings', function(req, res, next) {
     console.log(req.body.groups);
     console.log(AppConfig.Application.Path + AppConfig.Application.Data.Groups)
 
-    //WriteToCSV(req.body.groups, AppConfig.Application.Path + AppConfig.Application.Data.Groups)
-    var csvjson = require('csvjson');
+    WriteToCSV(req.body.groups, AppConfig.Application.Path + AppConfig.Application.Data.Groups)
 
-    var options = {
-        delimiter: ";",
-        wrap: false,
-        headers: "none"
-    }
-    fs.writeFileSync(AppConfig.Application.Path + AppConfig.Application.Data.Groups, csvjson.toCSV(req.body.groups, options));
-
-    win.elevate(AppConfig.Application.Path + AppConfig.Application.Executable, '');
+    win.elevate(AppConfig.Application.Path + AppConfig.Application.Executable);
     console.log(AppConfig.Application.Path + AppConfig.Application.Executable);
     res.sendStatus(200);
 
@@ -177,12 +169,6 @@ function LoadGroups() {
     return Groups;
 }
 
-
-/* 
-
-        --> Checken ob noch benötigt <--
-
-        
 function WriteToCSV(objArray, filePath) {
     var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
     var str = '';
@@ -201,5 +187,5 @@ function WriteToCSV(objArray, filePath) {
     }
     fs.writeFileSync(filePath, str);
 }
-*/
+
 module.exports = router;
