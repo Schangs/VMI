@@ -2,7 +2,15 @@
 
 Installieren:
 
+Als Service:
 1. download.
 2. install.cmd
-3. node InstallService.js (Kommandozeile. Kann man auslassen wenn es nicht als Service laufen soll. Wenn nicht dann weiter zu Schritt 4.)
-4. npm start (Kommandozeile)
+3. node InstallService.js (Kommandozeile)
+4. Browser öffnen und localhost:3000 eingeben
+
+Normal:
+1. download.
+2. install.cmd
+3. npm start (Kommandozeile)
+4. Browser öffnen und localhost:3000 eingeben
+
