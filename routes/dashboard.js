@@ -12,8 +12,10 @@ router.get('/', function(req, res, next) {
     var config = core.getINI();
     var Receipts = core.getReceipts();
 
+    console.log("test " + config)
 
-    if (Receipts != undefined) {
+
+    if (Receipts != undefined && config != undefined) {
         var Sales = Receipts.length
 
         var Amount = 0;
@@ -35,7 +37,7 @@ router.get('/', function(req, res, next) {
     } else {
         res.render('dashboard', {
             title: 'Dashboard',
-            automatennummer: config.Common.Automatennummer,
+            automatennummer: '',
             sales: 'Keine Daten',
             amount: 'Keine Daten'
         });
