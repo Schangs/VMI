@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "start": "node ./bin/server.js",
-        "build-lin": "pkg package.json --out-path Compile/Linux --targets armv7,armv6",
+        "build-lin": "pkg package.json --out-path Compile/Linux --targets linux",
         "build-win": "pkg package.json --out-path Compile/Windows --targets x86,x64"
     },
     "main": "app.js",
