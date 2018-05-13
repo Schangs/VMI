@@ -3,7 +3,17 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "start": "node ./bin/server.js"
+        "start": "node ./bin/server.js",
+        "build-lin": "pkg package.json --out-path Compile/Linux --targets armv7,armv6",
+        "build-win": "pkg package.json --out-path Compile/Windows --targets x86,x64"
+    },
+    "main": "app.js",
+    "bin": "bin/server.js",
+    "pkg": {
+        "assets": [
+            "views/**/*",
+            "public/**"
+        ]
     },
     "dependencies": {
         "app-root-path": "^2.0.1",
@@ -22,9 +32,5 @@
         "serve-favicon": "~2.4.5",
         "systeminformation": "^3.38.0",
         "winston": "^2.4.2"
-    },
-    "pkg": {
-        "scripts": "routes/*.js",
-        "assets": "views/*"
     }
 }
