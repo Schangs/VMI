@@ -3,12 +3,12 @@ var fs = require('fs');
 var ini = require('ini');
 var task = require('ms-task');
 var cmd = require('node-cmd');
-var AppConfig = require('../config.json')
+var core = require('../core')
 
 var router = express.Router();
 
-var IniFile = AppConfig.Application.Path + AppConfig.Application.Data.Config
-var config = ini.parse(fs.readFileSync(IniFile, 'utf-8'));
+var AppConfig = core.getAppconfig();
+var config = core.getINI();
 
 router.get('/log', function(req, res, next) {
 
