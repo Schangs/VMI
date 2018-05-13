@@ -58,5 +58,6 @@ function getINI() {
         return config
     } catch (error) {
         console.log(error)
+        return {}
     }
 };
