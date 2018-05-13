@@ -95,6 +95,7 @@ router.put('/settings', function(req, res, next) {
 
     task.kill(AppConfig.Application.Executable);
 
+    var IniFile = AppConfig.Application.Path + AppConfig.Application.Data.Config;
     fs.writeFileSync(IniFile, ini.stringify(config));
 
 
