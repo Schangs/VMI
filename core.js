@@ -58,6 +58,5 @@ function getINI() {
         return config
     } catch (error) {
         console.log(error)
-        return { Automatennummer: 0 }
     }
 };
