@@ -24,6 +24,7 @@ router.get('/usage', function(req, res, next) {
                     Intervall: Appconfig.System.UpdateIntervall.HardwareMonitor,
                     Thresholds: JSON.stringify(Appconfig.System.Thresholds)
                 })
+                res.status(200);
                 res.send(data);
             })
 
@@ -34,6 +35,7 @@ router.get('/usage', function(req, res, next) {
 
 router.get('/data', function(req, res, next) {
     si.getAllData(function(data) {
+        res.status(200);
         res.send(data);
     })
 });
