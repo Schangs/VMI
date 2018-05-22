@@ -97,10 +97,6 @@ router.put('/settings', function(req, res, next) {
     var IniFile = AppConfig.Application.Path + AppConfig.Application.Data.Config;
     fs.writeFileSync(IniFile, ini.stringify(config));
 
-
-    console.log(req.body.groups);
-    console.log(AppConfig.Application.Path + AppConfig.Application.Data.Groups)
-
     WriteToCSV(req.body.groups, AppConfig.Application.Path + AppConfig.Application.Data.Groups)
 
     cmd.run(AppConfig.Application.Path + AppConfig.Application.Executable);
@@ -123,7 +119,7 @@ router.get('/groups', function(req, res, next) {
 
     var Groups = core.getGroups();
 
-    if (Groups[0].Benutzergruppe == "Keine Daten in der Tabelle vorhanden") {
+    if (Groups.Benutzergruppe == "Keine Daten in der Tabelle vorhanden") {
         Groups = {};
     }
 
@@ -161,7 +157,10 @@ function WriteToCSV(objArray, filePath) {
     var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
     var str = '';
 
-    console.log(array.length)
+    if (array[0].Benutzergruppe == "Keine Daten in der Tabelle vorhanden") {
+        fs.unlink(filePath);
+        return;
+    }
 
     for (var i = 0; i < array.length; i++) {
         var line = '';

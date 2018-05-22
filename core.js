@@ -54,22 +54,27 @@ function getGroups() {
 
     var csvFilePath = AppConfig.Application.Path + AppConfig.Application.Data.Groups
 
-    try {
-        var csvdata = fs.readFileSync(csvFilePath, {
-            encoding: 'utf8'
-        });
+    var Groups = { Benutzergruppe: "Keine Daten in der Tabelle vorhanden" };
 
-        var options = {
-            delimiter: ';', // optional 
-            quote: '"', // optional 
-            headers: "Benutzergruppe;Untergruppe;Preisliste;Zahlungsart;Zuschuss;Zähler;Typ;Zuschusswahlen;Wert;GültigVon;GültigBis;KeyCard;"
-        };
+    if (fs.existsSync(csvFilePath) === true) {
+        try {
+            var csvdata = fs.readFileSync(csvFilePath, {
+                encoding: 'utf8'
+            });
 
-        var Groups = csvjson.toObject(csvdata, options);
-        return Groups
-    } catch (error) {
-        console.log(error)
+            var options = {
+                delimiter: ';', // optional 
+                quote: '"', // optional 
+                headers: "Benutzergruppe;Untergruppe;Preisliste;Zahlungsart;Zuschuss;Zähler;Typ;Zuschusswahlen;Wert;GültigVon;GültigBis;KeyCard;"
+            };
+
+            Groups = csvjson.toObject(csvdata, options);
+        } catch (error) {
+            console.log(error)
+        }
     }
+
+    return Groups
 }
 
 function getINI() {
