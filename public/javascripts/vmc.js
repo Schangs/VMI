@@ -116,6 +116,29 @@ function getLog() {
 
 function InitializeComponents() {
     var table = $('#GroupTable').DataTable({
+        ajax: {
+            url: "../vmc/groups",
+            type: "GET",
+            dataSrc: "Data",
+        },
+        language: {
+            url: "/languages/de-DE.json"
+        },
+        responsive: true,
+        columns: [
+            { data: "Benutzergruppe" },
+            { data: "Untergruppe" },
+            { data: "Preisliste" },
+            { data: "Zahlungsart" },
+            { data: "Zuschuss" },
+            { data: "Zähler" },
+            { data: "Typ" },
+            { data: "Zuschusswahlen" },
+            { data: "Wert" },
+            { data: "GültigVon" },
+            { data: "GültigBis" },
+            { data: "KeyCard" }
+        ],
         select: {
             style: 'single',
             selector: 'tr'
@@ -125,8 +148,7 @@ function InitializeComponents() {
         },
         order: [
             [1, 'asc']
-        ],
-        responsive: true
+        ]
     }).on('select', function(e, dt, type, indexes) {
         var rowData = table.rows(indexes).data().toArray();
         selectedRowIndex = indexes;
@@ -151,20 +173,20 @@ function InitializeComponents() {
         if ($('#Keycard').is(":checked")) {
             keycard = 1
         }
-        table.row.add([
-            $('#Benutzergruppe').val(),
-            $('#Benutzeruntergruppe').val(),
-            $('#Preisliste').val(),
-            $('#Zahlungsart').val(),
-            zuschuss,
-            $('#Zaehler').val(),
-            $('#Zuschusstyp').val(),
-            $('#Wert').val(),
-            $('#Zuschusswahlen').val(),
-            $('#Von').val(),
-            $('#Bis').val(),
-            keycard
-        ])
+        table.row.add({
+            "Benutzergruppe": $('#Benutzergruppe').val(),
+            "Untergruppe": $('#Benutzeruntergruppe').val(),
+            "Preisliste": $('#Preisliste').val(),
+            "Zahlungsart": $('#Zahlungsart').val(),
+            "Zuschuss": zuschuss,
+            "Zähler": $('#Zaehler').val(),
+            "Typ": $('#Zuschusstyp').val(),
+            "Wert": $('#Wert').val(),
+            "Zuschusswahlen": $('#Zuschusswahlen').val(),
+            "GültigVon": $('#Von').val(),
+            "GültigBis": $('#Bis').val(),
+            "KeyCard": keycard
+        })
         table.draw();
     })
     $('#SaveINI').click(function() {

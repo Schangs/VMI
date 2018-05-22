@@ -1,7 +1,8 @@
 module.exports = {
     getAppconfig: getAppconfig,
     getReceipts: getReceipts,
-    getINI: getINI
+    getINI: getINI,
+    getGroups: getGroups
 }
 
 var fs = require('fs');
@@ -42,6 +43,30 @@ function getReceipts() {
 
         var Receipts = csvjson.toObject(csvdata, options);
         return Receipts
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+function getGroups() {
+
+    var AppConfig = getAppconfig()
+
+    var csvFilePath = AppConfig.Application.Path + AppConfig.Application.Data.Groups
+
+    try {
+        var csvdata = fs.readFileSync(csvFilePath, {
+            encoding: 'utf8'
+        });
+
+        var options = {
+            delimiter: ';', // optional 
+            quote: '"', // optional 
+            headers: "Benutzergruppe;Untergruppe;Preisliste;Zahlungsart;Zuschuss;Zähler;Typ;Zuschusswahlen;Wert;GültigVon;GültigBis;KeyCard;"
+        };
+
+        var Groups = csvjson.toObject(csvdata, options);
+        return Groups
     } catch (error) {
         console.log(error)
     }

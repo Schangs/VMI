@@ -52,8 +52,7 @@ router.get('/settings', function(req, res, next) {
         timeip: config.Common.TimeIP,
         typ: config.Abrechnung.Typ,
         lesertyp: config.Common.LeserTyp,
-        vmctype: config.Common.VMCType,
-        groups: LoadGroups()
+        vmctype: config.Common.VMCType
     });
 
 });
@@ -120,6 +119,21 @@ router.get('/price', function(req, res, next) {
         })
 });
 
+router.get('/groups', function(req, res, next) {
+
+    var Groups = core.getGroups();
+
+    if (Groups[0].Benutzergruppe == "Keine Daten in der Tabelle vorhanden") {
+        Groups = {};
+    }
+
+    var json = JSON.stringify({
+        Data: Groups
+    });
+
+    res.send(json);
+});
+
 router.get('/info', function(req, res, next) {
 
     var data = fs.readFileSync('config.json', {
@@ -142,32 +156,6 @@ router.get('/manual', function(req, res, next) {
 
 });
 
-function LoadGroups() {
-
-    var data = fs.readFileSync('config.json', {
-        encoding: 'utf8'
-    });
-    var AppConfig = JSON.parse(data)
-
-    var csvjson = require('csvjson');
-
-    const csvFilePath = AppConfig.Application.Path + AppConfig.Application.Data.Groups
-
-    if (fs.existsSync(csvFilePath) == false) {
-        return {};
-    }
-
-    var data = fs.readFileSync(csvFilePath, { encoding: 'utf8' });
-
-    var options = {
-        delimiter: ';', // optional 
-        quote: '"', // optional 
-        headers: "Benutzergruppe;Untergruppe;Preisliste;Zahlungsart;Zuschuss;Zähler;Typ;Zuschusswahlen;Wert;GültigVon;GültigBis;Keycardtxt;"
-    };
-
-    var Groups = csvjson.toObject(data, options);
-    return Groups;
-}
 
 function WriteToCSV(objArray, filePath) {
     var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
