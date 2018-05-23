@@ -7,12 +7,21 @@
 var app = require('../app');
 var debug = require('debug')('api:server');
 var http = require('http');
+var core = require('../core');
+
+/**
+ * Check if Log directory exists or create it.
+ */
+
+core.checkLogDirectory();
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var Appconfig = core.getAppconfig();
+
+var port = normalizePort(process.env.PORT || Appconfig.System.Port);
 app.set('port', port);
 
 /**

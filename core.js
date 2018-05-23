@@ -2,7 +2,8 @@ module.exports = {
     getAppconfig: getAppconfig,
     getReceipts: getReceipts,
     getINI: getINI,
-    getGroups: getGroups
+    getGroups: getGroups,
+    checkLogDirectory: checkLogDirectory
 }
 
 var fs = require('fs');
@@ -22,7 +23,7 @@ function getAppconfig() {
     } catch (error) {
         console.log(error)
     }
-}
+};
 
 function getReceipts() {
 
@@ -46,7 +47,7 @@ function getReceipts() {
     } catch (error) {
         console.log(error)
     }
-}
+};
 
 function getGroups() {
 
@@ -75,7 +76,7 @@ function getGroups() {
     }
 
     return Groups
-}
+};
 
 function getINI() {
     try {
@@ -90,3 +91,10 @@ function getINI() {
         console.log(error)
     }
 };
+
+
+function checkLogDirectory() {
+    if (fs.existsSync("./logs") == false) {
+        fs.mkdirSync("./logs");
+    }
+}
