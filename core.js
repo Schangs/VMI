@@ -94,7 +94,10 @@ function getINI() {
 
 
 function checkLogDirectory() {
-    if (fs.existsSync("./logs") == false) {
-        fs.mkdirSync("./logs");
+    let logDirectory = "./logs";
+
+    if (fs.existsSync(logDirectory) == false) {
+        fs.mkdirSync(logDirectory);
+        fs.writeFileSync(logDirectory + "/app.log");
     }
 }

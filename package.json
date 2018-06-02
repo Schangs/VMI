@@ -1,11 +1,11 @@
 {
     "name": "vmi",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "private": true,
     "scripts": {
         "start": "node ./bin/server.js",
-        "build-lin": "pkg package.json --out-path Compile/Linux --targets linux",
-        "build-win": "pkg package.json --out-path Compile/Windows --targets x86,x64"
+        "build-lin": "pkg package.json --out-path ../Build/Linux --targets linux",
+        "build-win": "pkg package.json --out-path ../Build/Windows --targets x86,x64"
     },
     "main": "app.js",
     "bin": "bin/server.js",
@@ -29,6 +29,7 @@
         "morgan": "~1.9.0",
         "ms-task": "^1.1.0",
         "node-cmd": "^3.0.0",
+        "nodejs-license-file": "^4.0.0",
         "serve-favicon": "~2.4.5",
         "systeminformation": "^3.38.0",
         "winston": "^2.4.2"

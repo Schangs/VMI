@@ -42,8 +42,6 @@ router.get('/:date', function(req, res, next) {
 
     var date = req.params.date;
 
-    console.log(date);
-
     var jsonArr = [];
 
     for (i = 0; i <= 23; i++) {

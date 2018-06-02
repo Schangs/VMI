@@ -12,9 +12,6 @@ router.get('/', function(req, res, next) {
     var config = core.getINI();
     var Receipts = core.getReceipts();
 
-    console.log("test " + config)
-
-
     if (Receipts != undefined && config != undefined) {
         var Sales = Receipts.length
 

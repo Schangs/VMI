@@ -8,12 +8,19 @@ var app = require('../app');
 var debug = require('debug')('api:server');
 var http = require('http');
 var core = require('../core');
+var key = require('../key');
 
 /**
  * Check if Log directory exists or create it.
  */
 
 core.checkLogDirectory();
+
+/**
+ * Check license.
+ */
+
+key.CheckLicense();
 
 /**
  * Get port from environment and store in Express.
